@@ -1,0 +1,215 @@
+Task 7:
+******
+Day 06 :OOPS TASK 
+*****************
+1)
+
+class Movie
+{
+	constructor(title='',studio='',rating='PG')
+	{
+		this.title=title;
+		this.studio=studio;
+		this.rating=rating;
+	}
+	getPG(movies=[],rating=''){
+		return movies.filter((m)=>m.rating===rating);
+	}
+}
+const casionRoyaleMovie = new Movie('Casino Royale', 'Eon Productions', 'PG13');
+const leo = new Movie('Leo', 'LCU', 'PG');
+const vikram = new Movie('Vikram', 'Vijay', 'PG');
+const avatar = new Movie('Avatar: The water way', 'EROS', 'PG13');
+const avengers = new Movie('The avengers: End Game', 'LCU', 'PG');
+ 
+const moviesArray = [casionRoyaleMovie, leo, vikram, avatar, avengers];
+ 
+console.log(casionRoyaleMovie.getPG(moviesArray, 'R'));
+console.log(casionRoyaleMovie.getPG(moviesArray, 'PG'));
+
+--2)
+class Circle
+{
+	constructor(radius: double,color: String) {
+	this.radius=radius;
+	this.color=color;
+	}
+	Circle(){
+        console.log("Circle");
+    }
+	Circle(radius: double){
+        console.log("Circle with Radius");
+    }
+	Circle(radius: double,color:String){
+        console.log("Circle with Radius and Color");
+    }
+	getRadius():double{
+        return "Get Radius";
+    }
+	setRadius(radius:double):void{
+         console.log("Set Radius");
+    }
+	getColor():String{
+         return("get Color");
+    }
+	setColor(color:String):void{
+         console.log("Set color");
+    }
+	toString():string{
+         return("to String");
+    }
+	getArea():double{
+         return("get Area");
+    }
+	getCircumference():double{
+         return("get Circumference");
+    }
+}
+3)
+class person
+{
+	constructor(name='',empno='',dob='PG')
+	{
+		this.name=name;
+		this.empno=empno;
+		this.dob=dob;
+	}
+	
+}
+4)
+//Uber Fee Calc
+The Fare is calculated like this: Base Fare + ((Cost per minute x time of the ride) + (cost per mile x ride distance) x surge boost multiplier) + booking fee = Passengers Ride Fare.
+
+class Uber
+{
+	constructor(base_fare='',cost_per_min='',cost_per_mile='',boost_multi='',booking_fee='')
+	{
+		this.base_fare=base_fare;
+		this.cost_per_min=cost_per_min;
+		this.cost_per_mile=cost_per_mile;
+		this.boost_multi=boost_multi;
+		this.booking_fee=booking_fee;
+	}
+	calc(base_fare:double, cost_per_min:double, cost_per_mile:double, boost_multi:double, booking_fee:double):double{
+        return base_fare + ((cost_per_min) + (cost_per_mile) * boost_multi) + booking_fee;
+    }
+}
+
+
+
+Day 07:ARRAY METHODS
+********************
+
+request.open("GET", "https://restcountries.com/v3.1/all")
+request.send();
+
+// Get Response From Server
+request.onload = function () {
+    var data = JSON.parse(this.responseText);
+
+    Print_Asia_Cont_Reg(data);
+    Print_Pop_less_than_2l(data);
+    Print_Na_Cap_Flag(data);
+    Print_tot_pop(data);
+    Print_US_dol(data);
+}
+
+
+//A.Get all the countries from the Asia continent /region using the Filter function
+
+console.log("**************************************************************************************");
+console.log("A.Get all the countries from the Asia continent /region using the Filter function");
+console.log("**************************************************************************************");
+
+function Print_Asia_Cont_Reg(data) {
+  if(data.length > 0) {
+    var newArray = data.filter(function (el)
+    {
+      return el.region =='Asia' ;
+    });
+    //console.log(newArray);
+    for(let i= 0; i < newArray.length; i++) {
+      const { name = {}, region = '' }  = newArray[i];
+      console.log('Region -->'+ region+' | Country Name :' + name.common);
+  }
+
+  }
+  
+}
+
+//B.Get all the countries with a population of less than 2 lakhs using Filter function
+console.log("**************************************************************************************");
+console.log("B.Get all the countries with a population of less than 2 lakhs using Filter function");
+console.log("**************************************************************************************");
+
+function Print_Pop_less_than_2l(data) {
+  if(data.length > 0) {
+    var newArray = data.filter(function (el)
+    {
+      return parseInt(el.population) <200000 ;
+    });
+    //console.log(newArray);
+    for(let i= 0; i < newArray.length; i++) {
+      const { name = {}, population = '' }  = newArray[i];
+      console.log('Population -->'+ population+' | Country Name :' + name.common);
+  }
+  }
+  
+}
+//C.Print the following details name, capital, flag using forEach function
+console.log("**************************************************************************************");
+console.log("C.Print the following details name, capital, flag using forEach function");
+console.log("**************************************************************************************");
+
+function Print_Na_Cap_Flag(data) {
+  if(data.length > 0) {
+
+    for(let i= 0; i < data.length; i++) {
+  
+      const { name = {},capital='',flag='' }  = data[i];
+      console.log('Name -->'+ name.common+' | Capital :' + capital+' | Flag :' + flag);
+  }
+  
+}
+
+}
+//D.Print the total population of countries using reduce function
+
+
+console.log("**************************************************************************************");
+console.log("D.Print the total population of countries using reduce function");
+console.log("**************************************************************************************");
+
+function Print_tot_pop(data) {
+  if(data.length > 0) {
+
+    let initialValue = 0
+   
+let sum = data.reduce(function (accumulator, curValue) {
+
+    return accumulator + curValue.population;
+
+}, initialValue)
+
+console.log('Total Population : '+sum)
+  
+}
+
+}
+//E. Print the country which uses US Dollars as currency.
+
+console.log("**************************************************************************************");
+console.log("E.Print the country which uses US Dollars as currency.");
+console.log("**************************************************************************************");
+
+function Print_US_dol(data) {
+  if(data.length > 0) {
+    var newArray = data.filter(function (el)
+    {
+      return el.currencies.name =="United States dollar" ;
+    });
+    console.log(newArray);
+   
+  }
+  
+}
